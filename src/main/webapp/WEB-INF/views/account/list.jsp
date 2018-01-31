@@ -1,45 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>CRM-客户关系管理系统</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- MetisMenu CSS -->
-    <link href="/static/js/metisMenu/metisMenu.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="/static/css/sb-admin-2.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="/static/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <link rel="stylesheet" href="/static/js/datatables/media/css/dataTables.bootstrap.min.css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-</head>
-
-<body>
-
-<div id="wrapper">
-
-    <%@ include file="../include/nav.jsp"%>
+﻿
     <!-- Page Content -->
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -217,19 +176,6 @@
 
 
 
-<!-- jQuery -->
-<script src="/static/js/jquery.min.js"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="/static/js/bootstrap.min.js"></script>
-
-<!-- Metis Menu Plugin JavaScript -->
-<script src="/static/js/metisMenu/metisMenu.min.js"></script>
-
-<!-- Custom Theme JavaScript -->
-<script src="/static/js/sb-admin-2.js"></script>
-<script src="/static/js/datatables/media/js/jquery.dataTables.min.js"></script>
-<script src="/static/js/datatables/media/js/dataTables.bootstrap.min.js"></script>
 <script>
     $(function(){
 
@@ -240,7 +186,7 @@
             "order":[[0,'desc']],//默认排序方式
             "lengthMenu":[5,10,25,50,100],//每页显示数据条数菜单
             "ajax":{
-                url:"/account/users.json", //获取数据的URL
+                url:"./account/users.json", //获取数据的URL
                 type:"get" //获取数据的方式
             },
             "columns":[  //返回的JSON中的对象和列的对应关系
@@ -302,7 +248,7 @@
             $("#newUserModal").modal('show');
         });
         $("#saveBtn").click(function(){
-            $.post("/account/new",$("#newUserForm").serialize())
+            $.post("./account/new",$("#newUserForm").serialize())
                     .done(function(result){
                         if("success" == result) {
                             $("#newUserForm")[0].reset();
@@ -319,7 +265,7 @@
         $(document).delegate(".delLink","click",function(){
             var id = $(this).attr("data-id");
             if(confirm("确定要删除该数据吗?")) {
-                $.post("/account/del",{"id":id}).done(function(result){
+                $.post("./account/del",{"id":id}).done(function(result){
                     if("success" == result) {
                         dt.ajax.reload();
                     }
@@ -334,7 +280,7 @@
         $(document).delegate(".editLink","click",function(){
             $("#editUserForm")[0].reset();
             var id = $(this).attr("data-id");
-            $.get("/account/user.json",{"id":id}).done(function(result){
+            $.get("./account/user.json",{"id":id}).done(function(result){
                 $("#id").val(result.id);
                 $("#username").val(result.username);
                 $("#tel").val(result.tel);
@@ -366,7 +312,7 @@
 
         $("#editBtn").click(function(){
 
-            $.post("/account/edit",$("#editUserForm").serialize()).done(function(result){
+            $.post("./account/edit",$("#editUserForm").serialize()).done(function(result){
                 if(result == "success") {
                     $("#editUserModal").modal("hide");
                     dt.ajax.reload();
@@ -379,6 +325,3 @@
     });
 </script>
 
-</body>
-
-</html>

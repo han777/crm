@@ -36,26 +36,26 @@
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
                 <li>
-                    <a href="/home"><i class="fa fa-dashboard fa-fw"></i> 首页</a>
+                    <a href="#home"><i class="fa fa-dashboard fa-fw"></i> 首页</a>
                 </li>
                 <li>
-                    <a href="/customer"><i class="fa fa-users fa-fw"></i> 客户</a>
+                    <a href="#customer"><i class="fa fa-users fa-fw"></i> 客户</a>
                     <!-- /.nav-second-level -->
                 </li>
                 <li>
-                    <a href="/progress"><i class="fa fa-table fa-fw"></i> 跟进</a>
+                    <a href="#progress"><i class="fa fa-table fa-fw"></i> 跟进</a>
                 </li>
                 <li>
-                    <a href="/task"><i class="fa fa-edit fa-fw"></i> 待办</a>
+                    <a href="#task"><i class="fa fa-edit fa-fw"></i> 待办</a>
                 </li>
                 <li>
-                    <a href="chart.html"><i class="fa fa-bar-chart"></i> 统计</a>
+                    <a href="#charter"><i class="fa fa-bar-chart"></i> 统计</a>
 
                     <!-- /.nav-second-level -->
                 </li>
                 <shiro:hasRole name="管理员">
                     <li>
-                        <a href="/account"><i class="fa fa-sitemap fa-fw"></i> 用户管理</a>
+                        <a href="#account"><i class="fa fa-sitemap fa-fw"></i> 用户管理</a>
                     </li>
                 </shiro:hasRole>
             </ul>

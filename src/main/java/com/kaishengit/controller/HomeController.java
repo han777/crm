@@ -29,8 +29,6 @@ public class HomeController {
     @Value("${user.salt}")
     private String passwordSalt;
 
-    @Inject
-    private CustomerService customerService;
 
     /**
      * 登录页面
@@ -97,12 +95,7 @@ public class HomeController {
      */
     @RequestMapping(value = "/home",method = RequestMethod.GET)
     public String home(Model model) {
-        List<Map<String,Object>> result = customerService.homeTotal();
-
-        Gson gson = new Gson();
-        String json = gson.toJson(result);
-
-        model.addAttribute("json",json);
+        
         return "home";
     }
 

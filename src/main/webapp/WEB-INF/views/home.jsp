@@ -13,17 +13,17 @@
     <title>CRM-客户关系管理系统</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./static/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="/static/js/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="./static/js/metisMenu/metisMenu.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="/static/css/sb-admin-2.css" rel="stylesheet">
+    <link href="./static/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="/static/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="/static/js/morris/morris.css">
+    <link href="./static/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="static/js/morris/morris.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -35,63 +35,90 @@
 </head>
 
 <body>
+<!-- jQuery -->
+<script src="./static/js/jquery.min.js"></script>
 
 <div id="wrapper">
 
     <%@ include file="include/nav.jsp"%>
-    <!-- Page Content -->
-    <div id="page-wrapper">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="page-header">
-                        <h4><i class="fa fa-home"></i> 我的首页</h4>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">销售进展报告</div>
-                        <div class="panel-body">
-                            <div id="myfirstchart" style="height: 250px;"></div>
-                        </div>
-                    </div>
-
-
-
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-        </div>
-        <!-- /.container-fluid -->
-    </div>
-    <!-- /#page-wrapper -->
+    <div id="main" /> 
 
 </div>
 <!-- /#wrapper -->
 
-<!-- jQuery -->
-<script src="/static/js/jquery.min.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="/static/js/bootstrap.min.js"></script>
+<script src="./static/js/bootstrap.min.js"></script>
 
 <!-- Metis Menu Plugin JavaScript -->
-<script src="/static/js/metisMenu/metisMenu.min.js"></script>
+<script src="./static/js/metisMenu/metisMenu.min.js"></script>
 
 <!-- Custom Theme JavaScript -->
-<script src="/static/js/sb-admin-2.js"></script>
-<script src="/static/js/morris/raphael-min.js"></script>
-<script src="/static/js/morris/morris.min.js"></script>
+<script src="./static/js/sb-admin-2.js"></script>
+<script src="./static/js/morris/raphael-min.js"></script>
+<script src="./static/js/morris/morris.min.js"></script>
+<%-- DataTables JS--%>
+<script src="./static/js/datatables/media/js/jquery.dataTables.min.js"></script>
+<script src="./static/js/datatables/media/js/dataTables.bootstrap.min.js"></script>
+<script src="./static/js/jquery.twbsPagination.min.js"></script>
+<script src="static/js/datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="static/js/datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+
+<script src="http://apps.bdimg.com/libs/underscore.js/1.7.0/underscore-min.js"></script>
+<script src="http://apps.bdimg.com/libs/backbone.js/1.1.2/backbone.js"></script>
+<!-- <script src="http://apps.bdimg.com/libs/backbone.js/1.1.2/backbone-min.js"></script> -->
 <script>
-    $(function(){
-        Morris.Bar({
-            element: 'myfirstchart',
-            data: ${json},
-            xkey: 'custtype',
-            ykeys: ['total'],
-            labels: ['total']
-        }).on('click', function(i, row){
-            console.log(i, row);
+    $(function(){        
+        
+        // add on 2018.1.31
+        window.APP = window.APP || {};
+        APP.CrmRouter = Backbone.Router.extend({
+        	  routes: {
+        		"":"chart",  
+        		"home":"chart",
+        		"charter":"chart",
+        		"account":"account",
+        		"progress":"progress",
+        		"customer":"customer",
+        		"customer/:id":"viewCustomer",
+        		"task":"task"
+        	  },
+
+        	  $container: $('#main'),
+
+        	  initialize: function () {
+        	    //this.collection = new APP.NoteCollection();
+        	    //this.collection.fetch({ajaxSync: false});
+        	    //APP.helpers.debug(this.collection);
+        	    this.chart();
+        	    // start backbone watching url changes
+        	    Backbone.history.start();
+        	  },
+        	  
+        	  chart:function(){
+        		  this.$container.load("./report/chart");
+        	  },
+        	  account:function(){
+        		  this.$container.load("./account");
+        	  },
+        	  customer : function(){
+        		  this.$container.load("./customer");
+        	  },
+        	  viewCustomer : function(id){
+        		  this.$container.load("./customer/"+id);
+        	  },
+        	  progress : function(){
+        		  this.$container.load("./progress");
+        	  },
+        	  task : function(){
+        		  this.$container.load("./task");
+        	  }
+
         });
+        
+        var app=new APP.CrmRouter();
+        	  
+        
     });
 </script>
 
