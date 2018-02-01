@@ -217,7 +217,7 @@
         });
 
         $("#saveBtn").click(function(){
-            $.post("/customer/new",$("#newCustForm").serialize()).done(function(result){
+            $.post("customer/new",$("#newCustForm").serialize()).done(function(result){
                 if(result == "success") {
                     $("#newCustForm")[0].reset();
                     $("#newCustomer_Modal").modal('hide');

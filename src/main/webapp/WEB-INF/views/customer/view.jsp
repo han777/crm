@@ -226,7 +226,7 @@
                 <h4 class="modal-title">新增跟进记录</h4>
             </div>
             <div class="modal-body">
-                <form action="/customer/progress/new" method="post" id="newForm" enctype="multipart/form-data">
+                <form action="customer/progress/new" method="post" id="newForm" enctype="multipart/form-data">
                     <div class="form-group">
                         <label>客户</label>
                         <input type="hidden" value="${customer.id}" name="custid">
@@ -275,7 +275,7 @@
         //删除客户
         $("#delLink").click(function () {
             if (confirm("删除客户后，客户资料和跟进记录会全部删除，确定吗")) {
-                window.location.href = "/customer/del/${customer.id}";
+                window.location.href = "customer/del/${customer.id}";
             }
         });
 
@@ -283,7 +283,7 @@
         //公开客户
         $("#publicCustomer").click(function () {
             if (confirm("客户公开后，所有的用户都可以看到该客户的信息,确定吗")) {
-                $.post("/customer/public/${customer.id}").done(function (result) {
+                $.post("customer/public/${customer.id}").done(function (result) {
                     if (result.state != "success") {
                         alert(result.message);
                     } else {
@@ -302,12 +302,14 @@
         $("#tranBtn").click(function () {
             var userId = $("#userid").val();
             if (userId) {
-                $.post("/customer/tran/${customer.id}/" + userId).done(function (result) {
+                $.post("customer/tran/${customer.id}/" + userId).done(function (result) {
                     if (result.state != "success") {
                         alert(result.message);
                     } else {
                         alert("转交成功");
-                        window.location.href = "/customer";
+                        //app.navigate('#customer',true);
+                        //window.location.href = "customer";
+                        window.location.hash = "#customer";
                     }
                 }).fail(function () {
                     alert("操作异常");

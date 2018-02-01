@@ -97,7 +97,7 @@
                 <h4 class="modal-title">新增待办事项</h4>
             </div>
             <div class="modal-body">
-                <form action="/task/new" method="post" id="newTaskForm">
+                <form action="task/new" method="post" id="newTaskForm">
                     <div class="form-group">
                         <label>待办内容</label>
                         <textarea name="task" class="form-control" rows="3"></textarea>
@@ -145,7 +145,7 @@
             alert("doneLink");
             var $this = $(this);
             var id = $this.attr("rel");
-            $.post("/task/state/change",{"taskId":id,"state":"true"}).done(function(result){
+            $.post("task/state/change",{"taskId":id,"state":"true"}).done(function(result){
                 if(result.state == "success") {
                     $this.attr("class","unLink");
                     $this.text("撤销已完成");
@@ -167,7 +167,7 @@
             alert("unLink");
             var $this = $(this);
             var id = $this.attr("rel");
-            $.post("/task/state/change",{"taskId":id,"state":"false"}).done(function(result){
+            $.post("task/state/change",{"taskId":id,"state":"false"}).done(function(result){
                 if(result.state == "success") {
                     $this.attr("class","doneLink");
                     $this.text("标记已完成");
